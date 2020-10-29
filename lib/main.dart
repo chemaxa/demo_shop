@@ -1,56 +1,53 @@
-import 'package:demo_shop/pages/product.dart';
-import 'package:demo_shop/pages/products_list.dart';
+import 'package:demo_shop/pages/repository.dart';
+import 'package:demo_shop/pages/repositories_list.dart';
 import 'package:flutter/material.dart';
-import 'package:demo_shop/entities/product.dart';
+import 'package:demo_shop/entities/repository.dart';
 
-main() => runApp(DemoShopApp());
+main() => runApp(DemoGuthubApp());
 
-class DemoShopApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _DemoShopAppState();
-}
+class DemoGuthubApp extends StatelessWidget {
+  final repositories = [Repository(name: 'Ios'), Repository(name: 'Android')];
 
-class _DemoShopAppState extends State<DemoShopApp> {
-  List<Product> products = [
-    Product(name: 'Book', description: 'Very interesting book', price: 12.23),
-    Product(
-        name: 'Car', description: 'Desription of the car BMW', price: 1022.35),
-    Product(
-        name: 'Phone', description: 'Description for the IPhone', price: 345.76)
-  ];
+  Function _navigateToRepositoryPage(BuildContext context) =>
+      (Repository repository) {
+        Navigator.pushNamed(context, RepositoryPage.routeName,
+            arguments:
+                repositories.firstWhere((e) => e.name == repository.name));
+      };
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo Shop',
+      title: 'Demo Github App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Navigator(
-        pages: [
-          MaterialPage(
-            key: ValueKey('ProductsListPage'),
-            child: ProductsListPage(
-              products: products,
-              onTap: (Product product) {},
+      routes: <String, WidgetBuilder>{
+        RepositoriesListPage.routeName: (c) => RepositoriesListPage(
+              repositories: repositories,
+              onTap: _navigateToRepositoryPage(c),
             ),
-          ),
-          ProductPage(product: products[1])
-        ],
-        onPopPage: (route, result) {
-          if (!route.didPop(result)) {
-            return false;
-          }
-
-          // // Update the list of pages by setting _selectedBook to null
-          // setState(() {
-          //   _selectedBook = null;
-          // });
-
-          return true;
-        },
-      ),
+      },
+      onGenerateRoute: (RouteSettings settings) {
+        String routeName = settings.name;
+        switch (routeName) {
+          case RepositoryPage.routeName:
+            return MaterialPageRoute(
+                builder: (c) => RepositoryPage(
+                      repo: settings.arguments,
+                    ));
+          default:
+            {
+              return MaterialPageRoute(
+                builder: (c) => RepositoriesListPage(
+                  repositories: repositories,
+                  onTap: _navigateToRepositoryPage(c),
+                ),
+              );
+            }
+        }
+      },
     );
   }
 }
