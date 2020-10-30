@@ -1,4 +1,4 @@
-import 'package:demo_shop/entities/repository.dart';
+import 'package:github_demo_client/entities/repository.dart';
 import 'package:flutter/material.dart';
 
 class RepositoriesListPage extends StatelessWidget {

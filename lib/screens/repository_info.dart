@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:demo_shop/entities/repository.dart';
+import 'package:github_demo_client/entities/repository.dart';
 
 class RepositoryInfoScreen extends StatelessWidget {
   final Repository repository;

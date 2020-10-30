@@ -1,5 +1,5 @@
-import 'package:demo_shop/entities/repository.dart';
-import 'package:demo_shop/screens/repository_info.dart';
+import 'package:github_demo_client/entities/repository.dart';
+import 'package:github_demo_client/screens/repository_info.dart';
 import 'package:flutter/material.dart';
 
 class RepositoryPage extends StatelessWidget {

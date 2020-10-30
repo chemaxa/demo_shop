@@ -1,20 +1,10 @@
-import 'package:demo_shop/pages/repository.dart';
-import 'package:demo_shop/pages/repositories_list.dart';
+import 'package:github_demo_client/pages/home.dart';
+import 'package:github_demo_client/pages/repository.dart';
 import 'package:flutter/material.dart';
-import 'package:demo_shop/entities/repository.dart';
 
 main() => runApp(DemoGuthubApp());
 
 class DemoGuthubApp extends StatelessWidget {
-  final repositories = [Repository(name: 'Ios'), Repository(name: 'Android')];
-
-  Function _navigateToRepositoryPage(BuildContext context) =>
-      (Repository repository) {
-        Navigator.pushNamed(context, RepositoryPage.routeName,
-            arguments:
-                repositories.firstWhere((e) => e.name == repository.name));
-      };
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,28 +14,22 @@ class DemoGuthubApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: <String, WidgetBuilder>{
-        RepositoriesListPage.routeName: (c) => RepositoriesListPage(
-              repositories: repositories,
-              onTap: _navigateToRepositoryPage(c),
-            ),
+        HomePage.routeName: (c) => HomePage(),
       },
       onGenerateRoute: (RouteSettings settings) {
         String routeName = settings.name;
         switch (routeName) {
+          case HomePage.routeName:
+            return MaterialPageRoute(builder: (c) => HomePage());
           case RepositoryPage.routeName:
             return MaterialPageRoute(
                 builder: (c) => RepositoryPage(
                       repo: settings.arguments,
                     ));
           default:
-            {
-              return MaterialPageRoute(
-                builder: (c) => RepositoriesListPage(
-                  repositories: repositories,
-                  onTap: _navigateToRepositoryPage(c),
-                ),
-              );
-            }
+            return MaterialPageRoute(
+              builder: (c) => HomePage(),
+            );
         }
       },
     );
