@@ -30,7 +30,12 @@ dependencies:
   cupertino_icons: ^1.0.0
   firebase_auth: ^0.18.2
   firebase_core: ^0.5.1
-
+  github_sign_in: ^0.0.1
+  provider: ^4.3.2+2
+  http: ^0.12.2
+  graphql_flutter: ^3.0.0
+  shared_preferences: ^0.5.12+2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -10,17 +10,14 @@ class RepositoriesListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: [
-          for (var repo in repositories)
-            ListTile(
-              title: Text(repo.name),
-              onTap: () => onTap(repo),
-            )
-        ],
-      ),
+    return ListView(
+      children: [
+        for (var repo in repositories)
+          ListTile(
+            title: Text(repo.name),
+            onTap: () => onTap(repo),
+          )
+      ],
     );
   }
 }
